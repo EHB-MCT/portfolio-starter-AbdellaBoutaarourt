@@ -1,20 +1,35 @@
-const knex = require('knex');
+// Update with your config settings.
 
-const pg = require('knex')({
-  client: 'pg',
-  connection: process.env.PG_CONNECTION_STRING,
-  searchPath: ['knex', 'public'],
-});
-
-const db = knex({
-  client: 'pg', // or 'mysql' or 'sqlite3'
-  connection: {
-    host: 'your_database_host',
-    user: 'your_database_user',
-    password: 'your_database_password',
-    database: 'your_database_name',
+/**
+ * @type { Object.<string, import("knex").Knex.Config> }
+ */
+module.exports = {
+  development: {
+    client: "pg",
+    connection: process.env.DB_URL,
+    migrations: {
+      directory: "./data/migrations",
+    },
+    seeds: { directory: "./data/seeds" },
   },
-});
 
+  testing: {
+    client: "pg",
+    connection: process.env.DB_URL,
+    migrations: {
+      directory: "./data/migrations",
+    },
+    seeds: { directory: "./data/seeds" },
+  },
+
+  production: {
+    client: "pg",
+    connection: process.env.DB_URL,
+    migrations: {
+      directory: "./data/migrations",
+    },
+    seeds: { directory: "./data/seeds" },
+  },
+};
 
 
