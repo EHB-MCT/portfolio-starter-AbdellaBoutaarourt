@@ -1,5 +1,5 @@
 
-FROM node:16
+FROM node:latest
 
 WORKDIR /usr/app
 
@@ -13,4 +13,4 @@ COPY ./src ./src
 
 EXPOSE 3000
 
-CMD [ "npm","run", "start", "src/index.js"]
+CMD [ "npm","run", "start"]
