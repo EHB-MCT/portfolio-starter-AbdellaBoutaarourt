@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const User = require('../classes/User.js');
 const bcrypt = require('bcryptjs');
 
@@ -9,9 +10,9 @@ const handleErrors = (err, req, res, next) => {
 };
 
 const validateInputs = (inputs) => {
-  const { username, email, password } = inputs;
-  if (!username || !email || !password) {
-    throw new Error('username, email, and password are required.');
+  const { name, email, password } = inputs;
+  if (!name || !email || !password) {
+    throw new Error('name, email, and password are required.');
   }
 };
 
@@ -24,7 +25,7 @@ router.use(handleErrors);
 
 router.get('/', async (req, res) => {
   try {
-    const users = await req.db.select('username').from('users');
+    const users = await req.db.select('name').from('users');
     const usernames = users.map(user => user.name);
     res.json(usernames);
   } catch (error) {
@@ -49,13 +50,21 @@ router.post('/register', async (req, res) => {
 
     const newUser = new User({ name, email, password });
 
+    newUser.password = password;
+
     await newUser.hashPassword();
 
-    const userId = await newUser.save();
+    const [userId] = await req.db('users').insert({
+      name,
+      email,
+      password: newUser.password,
+    }, 'id');
 
     res.status(201).json({ userId });
   } catch (error) {
-    throw error;
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error.' });
+
   }
 });
 
@@ -95,7 +104,6 @@ router.get('/:id', async (req, res) => {
 /**
  * @route PUT /users/:id
  * @desc Update user details (email and/or password) by user ID.
- * @params {string} id - The ID of the user.
  * @body {string} email - The new email for the user (optional).
  * @body {string} password - The new password for the user (optional).
  * @body {string} confirmPassword - The confirmation of the new password.

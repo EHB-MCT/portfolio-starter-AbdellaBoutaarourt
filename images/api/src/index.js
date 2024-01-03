@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
-const usersRouter = require('../routes/user.js');
+
+const userRoute = require('../routes/user.js');
+
 require('dotenv').config({path: '../../../.env'});
 
-const knexConfig = require('./knexfile');
+const knexConfig = require('../knexfile.js');
 const knex = require('knex')(knexConfig.development);
 
 const app = express();
@@ -17,11 +19,15 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/users', usersRouter);
+app.use("/users", userRoute);
+
 app.get('/', (req, res) => {
     res.send('Hello, world!');
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+const server = app.listen(port, () => {
+    console.log(`REST API is running at http://localhost:${port}`);
 });
+
+module.exports = server;
+

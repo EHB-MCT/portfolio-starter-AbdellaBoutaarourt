@@ -2,15 +2,19 @@ const bcrypt = require("bcryptjs");
 
 // Made class for User
 class User {
-  constructor(username, email, password) {
-    this.username = username;
+  constructor(name, email, password) {
+    this.name = name;
     this.email = email;
     this.password = password;
   }
 
   // Hash the upcoming passwords
-  async hashPassword(password) {
-    this.password = await bcrypt.hash(password, 12);
+  async hashPassword() {
+    if (this.password) {
+      this.password = await bcrypt.hash(this.password, 12);
+    } else {
+      throw new Error('Password is required before hashing.');
+    }
   }
   // Unhash the upcoming passwords
   async unHashPassword(password) {
