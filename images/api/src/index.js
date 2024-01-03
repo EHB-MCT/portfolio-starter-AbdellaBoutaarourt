@@ -1,7 +1,6 @@
 const express = require('express');
-const cors = require('cors'); // Import the cors middleware
-const usersRouter = require('./routes/users.js');
-const artworksRouter = require('./routes/artworks.js');
+const cors = require('cors');
+const usersRouter = require('../routes/user.js');
 require('dotenv').config({path: '../../../.env'});
 
 const knexConfig = require('./knexfile');
@@ -19,8 +18,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/users', usersRouter);
-app.use('/artworks', artworksRouter);
-
 app.get('/', (req, res) => {
     res.send('Hello, world!');
 });
