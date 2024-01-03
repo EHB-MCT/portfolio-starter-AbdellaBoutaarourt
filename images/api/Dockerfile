@@ -13,4 +13,4 @@ COPY ./src ./src
 
 EXPOSE 3000
 
-CMD [ "npm","run", "start", "src/index.js"]
+CMD [ "npm","run", "start"]
