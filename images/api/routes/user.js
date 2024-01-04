@@ -4,6 +4,10 @@ const router = express.Router();
 const User = require('../classes/User.js');
 const bcrypt = require('bcryptjs');
 
+const knexConfig = require('../knexfile.js');
+const knex = require('knex')(knexConfig.development);
+
+
 const handleErrors = (err, req, res, next) => {
   console.error('Error:', err);
   res.status(500).json({ error: 'Internal server error.' });
@@ -25,7 +29,7 @@ router.use(handleErrors);
 
 router.get('/', async (req, res) => {
   try {
-    const users = await req.db.select('name').from('users');
+    const users = await knex.select('name').from('users');
     const usernames = users.map(user => user.name);
     res.json(usernames);
   } catch (error) {
@@ -54,7 +58,7 @@ router.post('/register', async (req, res) => {
 
     await newUser.hashPassword();
 
-    const [userId] = await req.db('users').insert({
+    const [userId] = await knex('users').insert({
       name,
       email,
       password: newUser.password,
@@ -84,7 +88,7 @@ router.get('/:id', async (req, res) => {
         return res.status(400).json({ error: 'User ID is required.' });
       }
 
-      const user = await req.db('users').where('id', userId).first();
+      const user = await knex('users').where('id', userId).first();
 
       if (!user) {
         return res.status(404).json({ error: 'User not found.' });
@@ -120,14 +124,14 @@ router.put('/:id', async (req, res) => {
         return res.status(400).json({ error: 'User ID is required.' });
       }
 
-      const user = await req.db('users').where('id', userId).first();
+      const user = await knex('users').where('id', userId).first();
 
       if (!user) {
         return res.status(404).json({ error: 'User not found.' });
       }
 
       if (email) {
-        const emailExists = await req.db('users').where('email', email).andWhereNot('id', userId).first();
+        const emailExists = await knex('users').where('email', email).andWhereNot('id', userId).first();
         if (emailExists) {
           return res.status(400).json({ error: 'Email is already in use by another user.' });
         }
@@ -143,7 +147,7 @@ router.put('/:id', async (req, res) => {
         user.password = await bcrypt.hash(password, 10);
       }
 
-      await req.db('users').where('id', userId).update({
+      await knex('users').where('id', userId).update({
         email: user.email,
         password: user.password,
       });
@@ -170,12 +174,12 @@ router.delete('/:id', async (req, res) => {
         return res.status(400).json({ error: 'User ID is required.' });
       }
 
-      const userExists = await req.db('users').where('id', userId).first();
+      const userExists = await knex('users').where('id', userId).first();
       if (!userExists) {
         return res.status(404).json({ error: 'User not found.' });
       }
 
-      await req.db('users').where('id', userId).del();
+      await knex('users').where('id', userId).del();
 
       res.json({ message: 'User deleted successfully.' });
     } catch (error) {
