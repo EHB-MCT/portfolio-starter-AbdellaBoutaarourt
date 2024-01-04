@@ -20,3 +20,25 @@ describe('POST /user', () => {
     }
   },15000);
 });
+
+describe('POST /anime', () => {
+  test('should respond with code 200', async () => {
+    try {
+      const response = await request
+        .post('/animes')
+        .send({
+          userId: 2,
+          animeImg: 'https://example.com/anime.jpg',
+          animeName: 'Test Anime',
+          animeDescription: 'This is a test anime.',
+          animeProducer: 'Test Producer',
+        })
+        .expect(200);
+
+      console.log(response.statusCode);
+    } catch (err) {
+      throw err;
+    }
+  });
+});
+
