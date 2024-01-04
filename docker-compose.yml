@@ -18,16 +18,16 @@ services:
     depends_on:
       - api
     build:
-     context: ./images/front
-    container_name: front
+      context: ./images/frontend
+    container_name: frontend
     ports:
       - 5173:5173
     volumes:
-      - ./images/front/src:/usr/src/app/src
+      - ./images/frontend/src:/usr/src/app/src
 
  store:
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB "]
+      test: ["CMD", "nc", "-z", "localhost", "5432"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -38,6 +38,7 @@ services:
       POSTGRES_USER:
       POSTGRES_PASSWORD:
       POSTGRES_DB:
-      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_HOST_AUTH_METHOD:
+    container_name: store
     volumes:
       - ./_backup:/var/lib/postgresql/data

@@ -1,21 +1,33 @@
-const express = require("express");
+const express = require('express');
+const cors = require('cors');
+
+const userRoute = require('../routes/user.js');
+
+require('dotenv').config({path: '../../../.env'});
+
+const knexConfig = require('../knexfile.js');
+const knex = require('knex')(knexConfig.development);
+
 const app = express();
-/**
- * @param
- * @return
- */
+const port = 3000;
 
-app.get("/",(req,res) =>{
+app.use(cors());
+app.use(express.json());
 
-    res.send({message:"hello world !"})
-})
+app.use((req, res, next) => {
+    req.db = knex;
+    next();
+});
 
+app.use("/users", userRoute);
 
-app.listen(3000,(err) => {
-    if(!err){
-        console.log("running on port " + 3000);
-    }
-    else{
-        console.error(err)
-    }
-})
+app.get('/', (req, res) => {
+    res.send('Hello, world!');
+});
+
+const server = app.listen(port, () => {
+    console.log(`REST API is running at http://localhost:${port}`);
+});
+
+module.exports = server;
+
