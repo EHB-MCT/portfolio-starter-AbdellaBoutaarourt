@@ -9,7 +9,7 @@ describe('POST /user', () => {
       .post('/users/register')
       .send({
           name: 'Jean',
-          email: 'jean.doe@example.com',
+          email: 'jean.doe@example.com',  // change de mail (unique)
           password: 'motdepassesecurise',
       })
       .expect(201);
