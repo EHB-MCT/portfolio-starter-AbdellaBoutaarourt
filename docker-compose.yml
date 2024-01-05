@@ -4,8 +4,7 @@ services:
 
  api:
    depends_on:
-     store:
-        condition: service_healthy
+     - store
    build: ./images/api
    ports:
      - 80:3000
@@ -18,27 +17,22 @@ services:
     depends_on:
       - api
     build:
-      context: ./images/frontend
+      context: ./images/front
     container_name: frontend
     ports:
       - 5173:5173
     volumes:
-      - ./images/frontend/src:/usr/src/app/src
+      - ./images/front/src:/usr/src/app/src
 
  store:
-    healthcheck:
-      test: ["CMD", "nc", "-z", "localhost", "5432"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+    container_name: store
     image: postgres:latest
     ports:
       - 5432:5432
     environment:
+      POSTGRES_HOST:
       POSTGRES_USER:
-      POSTGRES_PASSWORD:
       POSTGRES_DB:
-      POSTGRES_HOST_AUTH_METHOD:
-    container_name: store
+      POSTGRES_PASSWORD:
     volumes:
       - ./_backup:/var/lib/postgresql/data
