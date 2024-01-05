@@ -33,8 +33,10 @@ router.get('/', async (req, res) => {
     const usernames = users.map(user => user.name);
     res.json(usernames);
   } catch (error) {
-    throw error;
-  }
+    res.status(500).send({
+      error: "something went wrong",
+      value: error.stack,
+    });  }
 });
 
 
