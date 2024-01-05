@@ -22,7 +22,7 @@ export default function Register() {
     console.log(formBody);
 
     axios
-      .post("http://localhost:81/user", formBody)
+      .post("http://localhost:80/user", formBody)
       .then((response) => {
         // do something with the response data
         console.log(response);
