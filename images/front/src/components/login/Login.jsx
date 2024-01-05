@@ -20,7 +20,7 @@ export default function Login() {
     console.log(formBody);
 
     axios
-      .post("http://localhost:81/user/login", formBody)
+      .post("http://localhost:80/user/login", formBody)
       .then((response) => {
         // do something with the response data
         console.log(response);
