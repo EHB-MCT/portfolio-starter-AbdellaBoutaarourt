@@ -37,7 +37,7 @@ export default function Register() {
     <div className="main">
       <h1 className="introtitle">
       To Keep
-         <span style={{ color: "#CB1212" }}> Track</span> of the Anime You've Watched
+         <span style={{ color: "#CB1212" }}> Track</span> of the Animes You've Watched
       </h1>
 
       <div className="form">
