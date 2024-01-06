@@ -34,7 +34,7 @@ router.get("/", async (req, res) => {
  *  animeDescription : String - Description of the anime
  *  animeProducer : String - Producer of the anime
  *
- * @api {post} /anime Add a anime to the database
+ * @api {post} /animes Add a anime to the database
  * @param {Int} userId ID of the user
  * @param {String} animeName Name of the anime
  * @param {String} animeImg Cover of the anime
