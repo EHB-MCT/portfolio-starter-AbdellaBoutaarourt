@@ -26,7 +26,7 @@ export default function Home() {
     if (!userId) return;
 
     axios
-      .get(`http://localhost:80/users/saved/${userId}`)
+      .get(`http://localhost:80/animes/saved/${userId}`)
       .then((response) => {
         setAnimes(response.data);
       })
@@ -70,16 +70,9 @@ export default function Home() {
         </Link>
       </div>
       <div className="addanimebtndiv">
-        <Link to={`/create`}>
-          <button className="addanimebtn">
-            <Link
-              to="/create"
-              style={{ textDecoration: "none", color: "white" }}
-            >
-              +
+        <Link to={`/create`} style={{ textDecoration: "none", color: "white" }}>
+          <button className="addanimebtn">+</button>
             </Link>
-          </button>
-        </Link>
       </div>
       <div className="animescontainer">
   {animes &&
