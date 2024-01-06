@@ -12,7 +12,7 @@
     .hey {
       font-size: 1.8em;
     }
-    .addmovietitle {
+    .addanimetitle {
       font-size: 1.8em;
     }
   }
@@ -25,10 +25,12 @@
       color: rgb(255, 235, 235);
       margin-bottom: 50px;
       display: flex;
+      align-items: center;
       .inactive {
         display: none;
       }
       .name {
+        padding-left: 10px;
         font-size: 1em;
         color: rgb(255, 255, 255);
       }

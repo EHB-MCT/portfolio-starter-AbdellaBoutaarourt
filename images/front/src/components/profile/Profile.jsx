@@ -7,19 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function Profile() {
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
 
-  console.log(
-    "name :" + userName,
-    "Email :" + email,
-    "Password :" + password
-  );
 
   useEffect(() => {
     let userId = window.sessionStorage.getItem("userId");
@@ -33,10 +28,11 @@ export default function Profile() {
       .get(`http://localhost:80/users/${userId}`)
       .then((response) => {
         // do something with the response data
-        setUser(response.data.userInfo);
-        setEmail(response.data.userInfo.email);
-        setPassword(response.data.userInfo.password);
-        console.log(response)
+        const userInfo = response.data.userInfo;
+        setUser(userInfo.name);
+        setUserName(userInfo.name.name);
+        setEmail(userInfo.name.email);
+        setPassword(userInfo.name.password);
       })
       .catch((error) => {
         throw error;
@@ -49,11 +45,8 @@ export default function Profile() {
     if (!sessionStorage.getItem("userId")) {
       navigate("/");
     }
-  }, [history]);
+  }, [navigate]);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   const handleDisconnect = () => {
     window.sessionStorage.removeItem("userId");
@@ -69,16 +62,16 @@ export default function Profile() {
     setIsUpdate(!isUpdate);
   };
 
-  const handleDelete = (event) => {
+  const handleDelete = () => {
     axios
-      .delete(`http://localhost:81/user/${userId}`)
-      .then((data) => {
+      .delete(`http://localhost:80/users/${userId}`)
+      .then(() => {
         window.sessionStorage.removeItem("userId");
         window.sessionStorage.removeItem("userName");
         navigate("/");
       })
       .catch((error) => {
-        // handle error
+        console.error(error);
       });
   };
 
@@ -86,31 +79,26 @@ export default function Profile() {
     e.preventDefault();
 
     const body = {
-      firstname: firstname,
-      lastname: lastname,
+      name: userName,
       email: email,
       password: password,
     };
 
     console.log(body);
     axios
-      .put(`http://localhost:81/user/${userId}`, {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-      })
-      .then((response) => {
-        console.log(response);
-        sessionStorage.setItem("userName", firstname);
-        location.reload();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    .put(`http://localhost:80/users/${userId}`, body)
+    .then((response) => {
+      console.log(response);
+      sessionStorage.setItem("userName", userName);
+      location.reload();
+
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
 
-  const handleBackToHome = (event) => {
+  const handleBackToHome = () => {
     navigate("/home");
   };
 
@@ -130,15 +118,15 @@ export default function Profile() {
           Back to home
         </h3>
         <h3 className="hey">Hey , {userName} !</h3>
-        <h3 className="addmovietitle">My profile</h3>
+        <h3 className="addanimetitle">My profile</h3>
       </div>
 
       {user && (
         <div className="profilemain">
-          <form onSubmit={handleUpdate} autocomplete="off">
-
-            <h3 className="lastname text">
-              Lastname : <p className="name">{user[0].lastname}</p>{" "}
+          <form onSubmit={handleUpdate} autoComplete="off">
+            <h3 className="name text">
+            Username :{" "}
+              <p className="name">{user.name}</p>{" "}
               <p onClick={handleUpdateBtn}>
                 <FontAwesomeIcon
                   icon={faPenToSquare}
@@ -153,9 +141,9 @@ export default function Profile() {
               >
                 <input
                   type="text"
-                  className="lastnameinput input"
-                  name="lastname"
-                  onChange={(e) => setLastname(e.target.value)}
+                  className="usernameinput input"
+                  name="username"
+                  onChange={(e) => setUserName(e.target.value)}
                 ></input>
                 <button type="submit" className="submitbtn">
                   Submit
@@ -164,7 +152,7 @@ export default function Profile() {
             </h3>
 
             <h3 className="email text">
-              Email : <p className="name">{user[0].email}</p>{" "}
+            Email : <p className="name">{user.email}</p>{" "}
               <p onClick={handleUpdateBtn}>
                 <FontAwesomeIcon
                   icon={faPenToSquare}

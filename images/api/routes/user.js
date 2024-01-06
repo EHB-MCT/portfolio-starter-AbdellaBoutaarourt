@@ -154,7 +154,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
       const userId = req.params.id;
-      const { email, password, confirmPassword } = req.body;
+      const { name, email, password } = req.body;
 
       if (!userId) {
         return res.status(400).json({ error: 'User ID is required.' });
@@ -164,6 +164,9 @@ router.put('/:id', async (req, res) => {
 
       if (!user) {
         return res.status(404).json({ error: 'User not found.' });
+      }
+      if (name) {
+        user.name = name;
       }
 
       if (email) {
@@ -176,14 +179,11 @@ router.put('/:id', async (req, res) => {
       }
 
       if (password) {
-        if (password !== confirmPassword) {
-          return res.status(400).json({ error: 'Password and confirmation do not match.' });
-        }
-
         user.password = await bcrypt.hash(password, 10);
       }
 
       await knex('users').where('id', userId).update({
+        name: user.name,
         email: user.email,
         password: user.password,
       });
