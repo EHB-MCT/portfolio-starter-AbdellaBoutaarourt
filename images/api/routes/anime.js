@@ -85,12 +85,43 @@ router.get("/saved/:id", async (req, res) => {
         res.send(data);
       });
   } catch (error) {
-    res.status(500).send({
-      error: "something went wrong",
-      value: error.stack,
-    });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error.' });
+
   }
 });
+
+/**
+
+ * @api {delete} /user/:id Delete a saved animes
+ * @param {Class} _id Id of the object
+ *
+ * @returns return object - The anime that was deleted
+ */
+app.delete("/:id", async (req, res) => {
+  try {
+    const ID = parseInt(req.params.id);
+
+    if (isNaN(ID)) throw new Error("ID is not valid");
+
+    const query = await knex("animes").where({ id: ID });
+    const findAnime = query[0];
+
+    if (!findAnime) throw new Error("Movie does not exist");
+
+    await knex("animes")
+      .where({ id: ID })
+      .del()
+      .then(() => {
+        res.sendStatus(200);
+      });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error.' });
+
+  }
+});
+
 
   module.exports = router;
 
