@@ -17,7 +17,6 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formBody);
 
     axios
       .post("http://localhost:80/users/login", formBody)
@@ -26,8 +25,8 @@ export default function Login() {
         console.log(response);
 
         if (response) {
-          sessionStorage.setItem("userId", response.data.id);
-          sessionStorage.setItem("userName", response.data.firstname);
+          sessionStorage.setItem("userId", response.data.user.id);
+          sessionStorage.setItem("userName", response.data.user.name);
           navigate(`/home`);
         }
       })
@@ -37,7 +36,7 @@ export default function Login() {
   };
   return (
     <div className="login">
-      <h1 className="titl">Welcome back !</h1>
+      <h1 className="titl">Welcome !</h1>
       <form className="loginform" onSubmit={handleSubmit}>
         <label className="label">Email</label>
         <input
