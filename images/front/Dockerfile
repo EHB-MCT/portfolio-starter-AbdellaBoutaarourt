@@ -1,15 +1,13 @@
 
 FROM node:latest
 
-# Create a new directory for the app
-RUN mkdir -p /usr/src/app
+WORKDIR /usr/src
 
 
 # Copy the package.json and package-lock.json files
 COPY package*.json ./
 
 
-WORKDIR /usr/src
 # Install the dependencies
 RUN npm install
 

@@ -75,6 +75,41 @@ router.post('/register', async (req, res) => {
 });
 
 /**
+ * @route POST /login
+ * @desc Login user.
+ * @returns {Object} An object containing a response.
+ * @throws {Error} If there is an error in the login process.
+ */
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required.' });
+    }
+
+    const user = await knex('users').where('email', email).first();
+
+    if (!user) {
+      return res.status(404).json({ error: 'No user found.' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: 'Invalid password.' });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    res.status(500).json({
+      error: 'Something went wrong',
+      value: error.stack,
+    });
+  }
+});
+
+/**
  * @route GET /users/:id
  * @desc Retrieve user details by user ID.
  * @params {string} id - The ID of the user.
