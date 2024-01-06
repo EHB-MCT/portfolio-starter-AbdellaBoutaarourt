@@ -4,6 +4,7 @@ const router = express.Router();
 const Anime = require("../classes/Anime");
 
 const knexConfig = require('../knexfile.js');
+const { route } = require("./user.js");
 const knex = require('knex')(knexConfig.development);
 
 /**
@@ -92,6 +93,37 @@ router.get("/saved/:id", async (req, res) => {
 });
 
 /**
+ * Gets a specific anime from the api
+ * @returns return array - objects that contain : userId , animeName , animeImg , animeDescription, , animeProducer
+ */
+router.get("/:id", async (req, res) => {
+  try {
+    const ID = parseInt(req.params.id);
+
+    if (isNaN(ID)) throw new Error("ID is not valid");
+
+    const query = await knex("anime").where({ id: ID });
+    const findAnime = query[0];
+
+    if (!findAnime) throw new Error("Anime does not exist");
+
+    await knex
+      .select()
+      .from("anime")
+      .where({ id: ID })
+      .then((data) => {
+        res.send(data);
+      });
+  } catch (error) {
+    res.status(500).send({
+      error: "something went wrong",
+      value: error.stack,
+    });
+  }
+});
+
+
+/**
 
  * @api {delete} /user/:id Delete a saved animes
  * @param {Class} _id Id of the object
@@ -107,7 +139,7 @@ router.delete("/:id", async (req, res) => {
     const query = await knex("anime").where({ id: ID });
     const findAnime = query[0];
 
-    if (!findAnime) throw new Error("Movie does not exist");
+    if (!findAnime) throw new Error("Anime does not exist");
 
     await knex("anime")
       .where({ id: ID })

@@ -4,6 +4,8 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Create from "./components/create/Create";
 import Profile from "./components/profile/Profile";
+import Info from './components/info/info';
+
 
 
 
@@ -23,6 +25,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/create" element={<Create />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/info/:animeid" element={<Info />} />
 
         </Routes>
       </div>

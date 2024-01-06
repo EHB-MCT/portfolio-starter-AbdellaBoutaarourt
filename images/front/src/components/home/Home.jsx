@@ -78,7 +78,7 @@ export default function Home() {
   {animes &&
     animes.map((anime) => (
       <div className="animecontainer" key={anime.id}>
-        <Link to={`/specific?animeid=${anime.id}`}>
+        <Link to={`/info/${anime.id}`}>
           <img className="animeposter" src={anime.animeImg} alt={`Poster for ${anime.animeName}`} />
         </Link>
         <div className="animebottom">
