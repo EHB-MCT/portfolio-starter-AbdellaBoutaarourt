@@ -98,18 +98,18 @@ router.get("/saved/:id", async (req, res) => {
  *
  * @returns return object - The anime that was deleted
  */
-app.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const ID = parseInt(req.params.id);
 
     if (isNaN(ID)) throw new Error("ID is not valid");
 
-    const query = await knex("animes").where({ id: ID });
+    const query = await knex("anime").where({ id: ID });
     const findAnime = query[0];
 
     if (!findAnime) throw new Error("Movie does not exist");
 
-    await knex("animes")
+    await knex("anime")
       .where({ id: ID })
       .del()
       .then(() => {
