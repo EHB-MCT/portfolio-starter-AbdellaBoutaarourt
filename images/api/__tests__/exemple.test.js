@@ -9,7 +9,7 @@ describe('POST /user', () => {
       .post('/users/register')
       .send({
           name: 'Jean',
-          email: 'jean.doe@example.com',  // change de mail (unique)
+          email: 'jean.dose@example.com',  // change de mail (unique)
           password: 'motdepassesecurise',
       })
       .expect(201);
@@ -27,7 +27,7 @@ describe('POST /anime', () => {
       const response = await request
         .post('/animes')
         .send({
-          userId: 2,
+          userId: 3,
           animeImg: 'https://example.com/anime.jpg',
           animeName: 'Test Anime',
           animeDescription: 'This is a test anime.',

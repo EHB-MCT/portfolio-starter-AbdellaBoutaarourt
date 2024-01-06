@@ -102,10 +102,9 @@ router.post('/login', async (req, res) => {
 
     res.status(200).json({ user });
   } catch (error) {
-    res.status(500).json({
-      error: 'Something went wrong',
-      value: error.stack,
-    });
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error.' });
+
   }
 });
 
