@@ -14,6 +14,7 @@
     }
     .addanimetitle {
       font-size: 1.8em;
+      font-weight: 400;
     }
   }
 
@@ -27,15 +28,18 @@
       color: white;
       margin-top: 20px;
       margin-bottom: 10px;
+      font-weight: 400;
+
     }
 
     .input {
       background-color: #cccbcb;
       border: 1px solid #000000;
       border-radius: 15px;
-      padding: 20px 200px;
+      padding: 20px 20px;
+      width: 500px;
       color: rgb(0, 0, 0);
-      font-size: 1.5em;
+      font-size: 1em;
       text-align: left;
     }
     .inputform {

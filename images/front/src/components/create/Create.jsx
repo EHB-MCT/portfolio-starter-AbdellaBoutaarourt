@@ -25,10 +25,10 @@ export default function Create() {
     event.preventDefault();
     const formBody = {
       userId: userId,
-      movieImg: poster,
+      animeImg: poster,
       animeName: name,
       animeDescription: description,
-      AnimeProducer: producer,
+      animeProducer: producer,
     };
 
     console.log(formBody);
@@ -71,7 +71,7 @@ export default function Create() {
           Back to home
         </h3>
         <h3 className="hey">Hey , {userName} !</h3>
-        <h3 className="addanimetitle">Add a movie</h3>
+        <h3 className="addanimetitle">Add a anime</h3>
       </div>
 
       <form className="addanimeform" onSubmit={handleSubmit}>
