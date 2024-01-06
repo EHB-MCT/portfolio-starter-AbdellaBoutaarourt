@@ -3,6 +3,8 @@ import Login from "./components/login/Login";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Create from "./components/create/Create";
+import Profile from "./components/profile/Profile";
+
 
 
 
@@ -20,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/create" element={<Create />} />
+          <Route path="/profile" element={<Profile />} />
 
         </Routes>
       </div>

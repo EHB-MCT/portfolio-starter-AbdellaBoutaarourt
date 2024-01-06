@@ -96,9 +96,9 @@ router.get('/:id', async (req, res) => {
         return res.status(404).json({ error: 'User not found.' });
       }
 
-      const { name, email } = user;
+      const { name, email,password } = user;
 
-      const userInfo = new User({ id: userId, name, email });
+      const userInfo = new User({ id: userId, name, email, password});
 
       res.json({userInfo});
     } catch (error) {
