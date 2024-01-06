@@ -2,6 +2,8 @@ import Register from "./components/register/Register";
 import Login from "./components/login/Login";
 import Header from "./components/header/Header";
 import Home from "./components/home/Home";
+import Create from "./components/create/Create";
+
 
 
 import "./App.css";
@@ -17,6 +19,7 @@ function App() {
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/create" element={<Create />} />
 
         </Routes>
       </div>
