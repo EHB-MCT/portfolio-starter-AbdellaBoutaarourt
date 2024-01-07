@@ -15,6 +15,13 @@ module.exports = {
 
     },
   },
+  testing: {
+    client: "postgresql",
+    connection: process.env.PG_CONNECTION_STRING,
+    migrations: {
+      directory: "./data/migrations",
+    },
+  },
 
 };
 

@@ -16,5 +16,5 @@ RUN npm install
 # Copy the rest of the application code
 COPY ./ ./
 
-CMD [ "npm","run", "start"]
-# CMD ["npm" , "test"]
+#CMD [ "npm","run", "start"]
+CMD ["npm" , "test"]

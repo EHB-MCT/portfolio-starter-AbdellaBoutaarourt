@@ -67,9 +67,11 @@ router.post('/register', async (req, res) => {
 
     res.status(201).json({ userId });
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal server error.' });
-
+    if (error.code === '23505' && error.constraint === 'users_email_unique') {
+      res.status(400).json({ error: 'Email is already in use. Please choose a different email.' });
+    } else {
+      res.status(500).json({ error: 'Internal server error.' });
+    }
   }
 });
 
