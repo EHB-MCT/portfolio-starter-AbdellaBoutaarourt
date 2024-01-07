@@ -10,6 +10,14 @@ I created this project for the Development 5 course for the bachelor degree Mult
 2. Navigate to the project directory: `cd portfolio-starter-AbdellaBoutaarourt`
 3. Build and start the app using Docker Compose: `docker-compose up --build`. It can take around 20-40 seconds to build and the whole project.
 
+#### Environment Variables
+
+* `POSTGRES_USER` - Specifies the user account utilized by applications and services to connect to the PostgreSQL server.
+* `POSTGRES_PASSWORD` - Sets the password for authenticating with the PostgreSQL database server.
+* `POSTGRES_DB` - Determines the database with which applications and services will interact.
+* `PG_CONNECTION_STRING` - the postgres url .
+
+
 ## Usage
 
 Use the website by navigating to `http://localhost:5173` in your web browser
