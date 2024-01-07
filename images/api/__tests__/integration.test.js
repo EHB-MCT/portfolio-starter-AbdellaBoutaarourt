@@ -5,6 +5,11 @@ const supertest = require('supertest');
 const request = supertest(app);
 let createdUserId;
 
+afterAll(async () => {
+  // Clean up the database after running all tests
+  await knex('users').del();
+});
+
 describe('User Registration Integration Tests', () => {
 
 
@@ -67,9 +72,6 @@ describe('Anime Integration Tests', () => {
       console.log(response.body);
   });
 
-  afterAll(async () => {
-    // Clean up the database after running all tests
-    await knex('users').del();
-  });
+
 });
 
