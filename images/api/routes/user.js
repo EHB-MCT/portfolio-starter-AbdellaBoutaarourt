@@ -30,8 +30,7 @@ router.use(handleErrors);
 router.get('/', async (req, res) => {
   try {
     const users = await knex.select('name').from('users');
-    const usernames = users.map(user => user.name);
-    res.json(usernames);
+    res.json(users);
   } catch (error) {
     res.status(500).send({
       error: "something went wrong",

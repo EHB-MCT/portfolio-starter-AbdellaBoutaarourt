@@ -14,7 +14,7 @@
     "version": "1.0.0",
     "main": "src/index.js",
     "scripts": {
-        "start": "npx knex migrate:latest && nodemon -L",
+        "start": "npx knex migrate:latest && sleep 5 && nodemon -L",
         "test": "jest"
     },
     "author": "",
