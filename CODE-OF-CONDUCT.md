@@ -1,4 +1,4 @@
-# Code of Conduct - portfolio-RayanKhyare
+# Code of Conduct - portfolio
 
 ## Our Purpose
 
