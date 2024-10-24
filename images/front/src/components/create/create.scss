@@ -1,0 +1,81 @@
+.create {
+  max-width: 100%;
+  width: 75%;
+  margin: 0 auto;
+  .topwebsite {
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    .hey {
+      font-size: 1.8em;
+    }
+    .addanimetitle {
+      font-size: 1.8em;
+      font-weight: 400;
+    }
+  }
+
+  .addanimeform {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .label {
+      font-size: 2em;
+      color: white;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-weight: 400;
+
+    }
+
+    .input {
+      background-color: #cccbcb;
+      border: 1px solid #000000;
+      border-radius: 15px;
+      padding: 20px 20px;
+      width: 500px;
+      color: rgb(0, 0, 0);
+      font-size: 1em;
+      text-align: left;
+    }
+    .inputform {
+      display: flex;
+      flex-direction: column;
+    }
+    .firstaddanimeform {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+      gap: 10px;
+
+    }
+    .secondaddanimeform {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    .addanimesubmit {
+      width: 150px;
+      padding: 15px 25px;
+      background-color: #414141;
+      border: 1px solid #000000;
+      border-radius: 10px;
+      color: white;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    .description.input{
+      height: 150px;
+      min-height: 150px;
+      width: 690px;
+      overflow: hidden;
+      padding: 10px;
+
+    }
+  }
+}

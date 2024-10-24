@@ -1,0 +1,14 @@
+# build and run 
+docker-compose up --build
+
+# Build the Docker image
+docker build -t my-node-app .
+
+# Run the Docker container
+docker run -p 3000:3000 my-node-app
+
+This will build a Docker image based on the Dockerfile, and then run a container using that image. The container will expose port 3000.
+
+Additional Notes:
+Make sure you have a knexfile.js properly configured in your project since it's required for your application to connect to the database.
+If you need to connect your application to a database running in another Docker container, you'll need to set up Docker networking or use services in your docker-compose.yml.
